@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:math';
-
+import 'LoginScreen.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: "ocr-a",
       ),
-      home: CreditCard(),
+      home: LoginScreen(),
     );
   }
 }
