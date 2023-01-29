@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:alan_voice/alan_voice.dart';
+import 'SignUpScreen.dart';
 class LoginScreen extends StatefulWidget{
 
 
@@ -11,6 +13,15 @@ _LoginScreenState createState() => _LoginScreenState();
 
 
 class _LoginScreenState extends State<LoginScreen>{
+
+  _LoginScreenState() {
+    /// Init Alan Button with project key from Alan Studio
+    AlanVoice.addButton("17c0479308da8681dee5137b6249751d2e956eca572e1d8b807a3e2338fdd0dc/stage");
+    /// Handle commands from Alan Studio
+    AlanVoice.onCommand.add((command) {
+    debugPrint("got new command ${command.toString()}");
+    });
+  }
 bool isRememberME =false;
 Widget buildEmail(){
 
@@ -234,7 +245,14 @@ Widget buildLoginbtn(){
 Widget buildSignupbtn(){
 
   return GestureDetector(
-    onTap:() => print("Sign up press"),
+
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) =>  SignUpScreen()),
+      );
+    },
+
     child: RichText(
       text: TextSpan(
         children: [
