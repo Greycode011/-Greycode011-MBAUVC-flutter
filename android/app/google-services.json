@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "777693209031",
+    "project_id": "mbauvc",
+    "storage_bucket": "mbauvc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777693209031:android:3ae5c8241c646af52139e2",
+        "android_client_info": {
+          "package_name": "com.example.credit_card_animation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "777693209031-4cgnhj3932c9gphsrkh098phialu3mk6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYY31yyB49ShFEqoppQSFsO3X0YDe3CmE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "777693209031-4cgnhj3932c9gphsrkh098phialu3mk6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,10 +1,13 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:alan_voice/alan_voice.dart';
 import 'SignUpScreen.dart';
+import 'CreditCard.dart';
 class LoginScreen extends StatefulWidget{
-
+  const LoginScreen({super.key});
 
 @override
 _LoginScreenState createState() => _LoginScreenState();
@@ -23,6 +26,20 @@ class _LoginScreenState extends State<LoginScreen>{
     });
   }
 bool isRememberME =false;
+  final _emailController=TextEditingController();
+  final _passwordController=TextEditingController();
+  Future  SignIn() async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(email: _emailController.text.trim(), password: _passwordController.text.trim());
+
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+  }
+
 Widget buildEmail(){
 
   return Column(
@@ -58,6 +75,7 @@ Widget buildEmail(){
         height: 60,
         child: TextField(
           keyboardType: TextInputType.emailAddress,
+          controller:_emailController ,
           style: TextStyle(
               color: Colors.black87
           ),
@@ -120,6 +138,7 @@ Widget buildPassword(){
         height: 60,
         child: TextField(
           obscureText: true,
+          controller: _passwordController,
           style: TextStyle(
               color: Colors.black87
           ),
@@ -215,31 +234,40 @@ color: Colors.white,
 
 Widget buildLoginbtn(){
 
-  return Container(
-    padding: EdgeInsets.symmetric(vertical: 25),
-    width: double.infinity,
-    child: ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        primary: Colors.white,
-        padding:EdgeInsets.all(15),
+  return GestureDetector(
+ onTap: SignIn,
+    child: Container(
+      padding: EdgeInsets.symmetric(vertical: 25),
+      width: double.infinity,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: Colors.white,
+          padding:EdgeInsets.all(15),
 
 
-        shape:  RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
+          shape:  RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+
+
         ),
+        // onPressed: () {
+        //   Navigator.push(
+        //     context,
+        //     MaterialPageRoute(builder: (context) =>  CreditCard()),
+        //   );
+        // },
 
+        onPressed: SignIn,
+        child:  Text('Login',style: TextStyle(
+          color:Color(0xff3d54c8),
+          fontSize: 18,
+          fontWeight: FontWeight.bold
 
+        ),),
       ),
-      onPressed: () => print("Login pressed"),
 
-      child:  Text('Login',style: TextStyle(
-        color:Color(0xff3d54c8),
-        fontSize: 18,
-        fontWeight: FontWeight.bold
-
-      ),),
     ),
-
   );
 }
 Widget buildSignupbtn(){
@@ -331,8 +359,9 @@ horizontal: 25,
 
 
         )
-
+       
         ),
+        // Image.asset(assets/M.B.A.U.V.C.png),
         SizedBox(height: 50),
         buildEmail(),
         SizedBox(height: 20),
@@ -356,6 +385,8 @@ horizontal: 25,
 
  );
   }
+
+
 
 
 }

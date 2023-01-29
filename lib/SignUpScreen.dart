@@ -1,10 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:alan_voice/alan_voice.dart';
 import 'LoginScreen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 class SignUpScreen extends StatefulWidget{
-
+  const SignUpScreen({super.key});
 
   @override
   _SignUpScreenState createState() => _SignUpScreenState();
@@ -12,6 +16,27 @@ class SignUpScreen extends StatefulWidget{
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+
+  final _emailController=TextEditingController();
+  final _IDController=TextEditingController();
+  final _PhoneController=TextEditingController();
+  final _fullnameController=TextEditingController();
+  final _passwordController=TextEditingController();
+  Future  SignUp() async {
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _emailController.text.trim(), password: _passwordController.text.trim());
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _IDController.dispose();
+    _fullnameController.dispose();
+    _PhoneController.dispose();
+
+
+  }
   Widget buildEmail(){
 
     return Column(
@@ -46,6 +71,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
           height: 60,
           child: TextField(
+            controller:_emailController ,
             keyboardType: TextInputType.emailAddress,
             style: TextStyle(
                 color: Colors.black87
@@ -356,6 +382,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
           height: 60,
           child: TextField(
+            controller: _passwordController,
             obscureText: true,
             style: TextStyle(
                 color: Colors.black87
@@ -386,36 +413,40 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
   Widget buildSignupbtn(){
 
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 25),
-      width: double.infinity,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          primary: Colors.white,
-          padding:EdgeInsets.all(15),
+    return GestureDetector(
+      onTap: SignUp,
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 25),
+        width: double.infinity,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.white,
+            padding:EdgeInsets.all(15),
 
 
-          shape:  RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
+            shape:  RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+
+
           ),
+          // onPressed: () {
+          //   Navigator.push(
+          //     context,
+          //     MaterialPageRoute(builder: (context) =>  LoginScreen()),
+          //   );
+          // },
 
+          onPressed:SignUp,
+          child:  Text('SignUp',style: TextStyle(
+              color:Color(0xff3d54c8),
+              fontSize: 18,
+              fontWeight: FontWeight.bold
 
+          ),),
         ),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) =>  LoginScreen()),
-          );
-        },
 
-        child:  Text('SignUp',style: TextStyle(
-            color:Color(0xff3d54c8),
-            fontSize: 18,
-            fontWeight: FontWeight.bold
-
-        ),),
       ),
-
     );
   }
   @override
@@ -500,5 +531,3 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
 
 }
-
-
